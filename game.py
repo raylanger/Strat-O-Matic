@@ -63,7 +63,7 @@ class game_state():
                     else: self.positions[j][i] = batter(self.positions[j][i])
 
                 #Ensure no non-player elements were provided.
-                assert self.positions[j][i] is pitcher or self.positions[j][i] is batter
+                assert isinstance(self.positions[j][i], pitcher) or isinstance(self.positions[j][i], batter)
         
         #Set lineup
         if lineups is not None:
@@ -76,7 +76,7 @@ class game_state():
                 #Ensure all players are of batter class and are listed in positions
                 for i in [0,1]:
                     for j in range(10):
-                        assert lineups[i][j] is batter
+                        assert isinstance(lineups[i][j], batter)
                         assert lineups[i][j] in positions[i]
         else: #Default
             self.lineup = [[self.positions[0][i] for i in [0,2,3,4,5,6,7,8,9]],
@@ -759,7 +759,7 @@ class box_score():
                     else: self.positions[j][i] = batter(self.positions[j][i])
 
                 #Ensure no non-player elements were provided.
-                assert self.positions[j][i] is pitcher or self.positions[j][i] is batter
+                assert isinstance(self.positions[j][i], pitcher) or isinstance(self.positions[j][i], batter)
 
         #Set lineup
         if lineups is not None:
@@ -773,7 +773,7 @@ class box_score():
                 #Ensure all players are of batter class and are listed in positions
                 for i in [0,1]:
                     for j in range(10):
-                        assert lineups[i][j] is batter
+                        assert isinstance(lineups[i][j], batter)
                         assert lineups[i][j] in positions[i]
         
         else: #Default
@@ -1075,7 +1075,7 @@ class scorecard():
                     else: self.positions[j][i] = batter(self.positions[j][i])
 
                 #Ensure no non-player elements were provided.
-                assert self.positions[j][i] is pitcher or self.positions[j][i] is batter
+                assert isinstance(self.positions[j][i], pitcher) or isinstance(self.positions[j][i], batter)
 
         #Set lineup
         if lineups is not None:
@@ -1089,7 +1089,7 @@ class scorecard():
                 #Ensure all players are of batter class and are listed in positions
                 for i in [0,1]:
                     for j in range(10):
-                        assert lineups[i][j] is batter
+                        assert isinstance(lineups[i][j], batter)
                         assert lineups[i][j] in positions[i]
         
         else: #Default
