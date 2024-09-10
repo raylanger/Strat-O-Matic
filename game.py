@@ -172,10 +172,11 @@ class game_state():
         Returns:
             list: runners who scored
             bool: Controls whether runs scored count as RBI (Always True)
-            list: Additional box score arguments (Always empty)
+            list: Additional box score arguments ('out' if runner thrown out)
             list: Additional score card arguments (Always empty)
         """
 
+        BS_arg = ['']
         if typ == '*': #Single, 1 base advance
 
             #Runs score only if runner on third
@@ -218,6 +219,8 @@ class game_state():
                     self.outs += 1
                     self.runners[1] = None
                     runs = self.S('**')[0]
+                    BS_arg = ['out']
+
                 elif res == 2: #If safe: single, 2-base advance
                     runs = self.S('**')[0]
                 else: #If held: single, 1-base advance
@@ -242,6 +245,7 @@ class game_state():
                     self.outs += 1
                     self.runners[0] = None
                     self.S('**')
+                    BS_arg = ['out']
                 elif res == 2:#If safe: single, 2-base advance
                     runs = self.S('**')[0]
                 else:#If held: single, 1-base advance
@@ -250,7 +254,7 @@ class game_state():
             else: #If no runners on first or second: single, 1-base advance
                 runs = self.S('*')[0]
 
-        return runs, True, [], []
+        return runs, True, BS_arg, []
 
     def D(self, typ):
         """Updates game state for all variety of doubles.
@@ -261,7 +265,7 @@ class game_state():
         Returns:
             list: runners who scored
             bool: Controls whether runs scored count as RBI (Always True)
-            list: Additional box score arguments (Always empty)
+            list: Additional box score arguments ('out' if runner thrown out)
             list: Additional score card arguments (Always empty)
         """
         
@@ -306,14 +310,14 @@ class game_state():
                     self.outs += 1
                     self.runners[2] = None
                     runs = self.D('**')[0]
-                    
+                    BS_arg = ['out']
                 if res == 2: #If safe: double, 3-base advance
                     runs = self.D('***')[0]
 
             else: #If no runner on first: double, 2-base advance
                 runs = self.D('**')[0]
 
-        return runs, True, [], []
+        return runs, True, BS_arg, []
 
     def T(self):
         """Updates game state for a triple.
@@ -906,13 +910,14 @@ class box_score():
         self.pitchers[1-batting_team][pitcher][1] += 1
         self.pitchers[1-batting_team][pitcher][-1] += 1
     
-    def S(self, batting_team,batter,pitcher):
+    def S(self, batting_team,batter,pitcher, out):
         """Updates box score on a single.
 
         Args:
             batting_team (int): Team batting (0 for away, 1 for home)
             batter (str): Current batter
             pitcher (str): Current pitcher
+            out (str): 'out' if runner has been thrown out
         """
 
         #Increase batter AB and H by 1
@@ -921,18 +926,22 @@ class box_score():
 
         #Increase pitcher H by 1
         self.pitchers[1-batting_team][pitcher][1] += 1
+
+        if out == 'out':
+            self.pitchers[1-batting_team][pitcher][0] += 1/3
     
-    def D(self, batting_team,batter,pitcher):
+    def D(self, batting_team,batter,pitcher, out):
         """Updates box score on a double.
 
         Args:
             batting_team (int): Team batting (0 for away, 1 for home)
             batter (str): Current batter
             pitcher (str): Current pitcher
+            out (str): 'out' if runner has been thrown out
         """
 
         #Same effect on box score as single
-        self.S(batting_team,batter,pitcher)
+        self.S(batting_team,batter,pitcher, out)
     
     def T(self, batting_team,batter,pitcher):
         """Updates box score on a triple.
@@ -1571,7 +1580,7 @@ class game():
                     print('Away team wins!')
                     self.result = 0
 
-            if result is None: #If game proceeds
+            if self.result is None: #If game proceeds
 
                 #Set outs to 0
                 self.GS.outs = 0
@@ -1586,7 +1595,7 @@ class game():
                 self.GS.runners = [None,None,None]
 
                 #Start inning
-                game.SB.inning_start(self.GS.inning,self.GS.batting_team)
+                self.SB.inning_start(self.GS.inning,self.GS.batting_team)
 
         #If home team batting, and inning >= 9, check for walk-off win
         elif self.GS.inning >= 9 and self.GS.batting_team == 1 and self.GS.score[1] > self.GS.score[0]:
