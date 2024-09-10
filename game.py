@@ -100,16 +100,17 @@ class game_state():
         self.pitcher = self.positions[1-self.batting_team][1] #Set pitcher
         self.batter = self.lineup[self.batting_team][self.lineup_pos[self.batting_team]] #Set batter
     
-    def display(self):
+    def display(self, ax = None):
         """A function for displaying the current game state."""
 
         #Define dictionaries containing information about the box styles used to list fielder and runner names.
         bbox_fielder = {'boxstyle': 'round','alpha': 0.8, 'pad' : 0.2, 'ec' : 'k', 'fc' : 'w'}
         bbox_runner = {'boxstyle': 'round','alpha': 0.8, 'pad' : 0.2, 'ec' : 'r', 'fc' : 'w'}
 
-        #Create figure and axis
-        fig = plt.figure(figsize = [8,8])
-        ax = fig.add_subplot()
+        if ax is None:
+            #Create figure and axis
+            fig = plt.figure(figsize = [8,8])
+            ax = fig.add_subplot()
 
         #Set title as the score
         ax.set_title("%d-%d" % (self.score[0],self.score[1]), fontsize = 14)
