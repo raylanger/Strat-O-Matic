@@ -112,9 +112,6 @@ class game_state():
             fig = plt.figure(figsize = [8,8])
             ax = fig.add_subplot()
 
-        #Set title as the score
-        ax.set_title("%d-%d" % (self.score[0],self.score[1]), fontsize = 14)
-
         #Put inning and outs in top left.
         ax.text(0.02,0.98, "%s%d\n%d Outs" % ("T" if self.batting_team == 0 else "B", self.inning,self.outs), ha = 'left', va = 'top', transform = ax.transAxes, fontsize = 14)
 
@@ -129,7 +126,7 @@ class game_state():
                                 [0.7535087719298246,0.31888246628131023],
                                 [0.7842105263157895,0.35452793834296725],
                                 [0.7535087719298246,0.3901734104046243]], fc = 'k', transform = ax.transAxes))
-            ax.text(0.8,0.33,self.runners[0].name,ha = 'center',va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_runner)
+            ax.text(0.8,0.33,self.runners[0].name,ha = 'center',va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_runner)
 
 
         if self.runners[1] is not None:
@@ -137,32 +134,32 @@ class game_state():
                                 [0.5008771929824561,0.6001926782273603],
                                 [0.5333333333333333,0.6358381502890174],
                                 [0.5008771929824561,0.6714836223506744]], fc = 'k', transform = ax.transAxes))
-            ax.text(0.5,0.65,self.runners[1].name,ha = 'center',va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_runner)
+            ax.text(0.5,0.65,self.runners[1].name,ha = 'center',va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_runner)
 
         if self.runners[2] is not None:
             ax.add_patch(matplotlib.patches.Polygon([[0.21929824561403508,0.35452793834296725],
                                 [0.25,0.31888246628131023],
                                 [0.2807017543859649,0.35452793834296725],
                                 [0.25,0.3901734104046243]], fc = 'k', transform = ax.transAxes))
-            ax.text(0.2,0.33,self.runners[2].name,ha = 'center',va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_runner)
+            ax.text(0.2,0.33,self.runners[2].name,ha = 'center',va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_runner)
 
         #Write all fielder names in respective positions
-        ax.text(0.5,0.38,self.positions[1-self.batting_team][1].name,ha = 'center', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_fielder)
-        ax.text(0.5,0.03,self.positions[1-self.batting_team][2].name,ha = 'center', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_fielder)
-        ax.text(0.75,0.42,self.positions[1-self.batting_team][3].name,ha = 'center', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_fielder)
-        ax.text(0.65,0.55,self.positions[1-self.batting_team][4].name,ha = 'center', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_fielder)
-        ax.text(0.35,0.55,self.positions[1-self.batting_team][6].name,ha = 'center', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_fielder)
-        ax.text(0.25,0.42,self.positions[1-self.batting_team][5].name,ha = 'center', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_fielder)
-        ax.text(0.2,0.68,self.positions[1-self.batting_team][7].name,ha = 'center', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_fielder)
-        ax.text(0.5,0.85,self.positions[1-self.batting_team][8].name,ha = 'center', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_fielder)
-        ax.text(0.8,0.68,self.positions[1-self.batting_team][9].name,ha = 'center', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_fielder)
+        ax.text(0.5,0.38,self.positions[1-self.batting_team][1].name,ha = 'center', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_fielder)
+        ax.text(0.5,0.03,self.positions[1-self.batting_team][2].name,ha = 'center', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_fielder)
+        ax.text(0.75,0.42,self.positions[1-self.batting_team][3].name,ha = 'center', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_fielder)
+        ax.text(0.65,0.55,self.positions[1-self.batting_team][4].name,ha = 'center', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_fielder)
+        ax.text(0.35,0.55,self.positions[1-self.batting_team][6].name,ha = 'center', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_fielder)
+        ax.text(0.25,0.42,self.positions[1-self.batting_team][5].name,ha = 'center', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_fielder)
+        ax.text(0.2,0.68,self.positions[1-self.batting_team][7].name,ha = 'center', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_fielder)
+        ax.text(0.5,0.85,self.positions[1-self.batting_team][8].name,ha = 'center', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_fielder)
+        ax.text(0.8,0.68,self.positions[1-self.batting_team][9].name,ha = 'center', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_fielder)
         
         #Write batter name on proper side of plate
         if self.batter.hand == 'R' or (self.batter.hand == 'S' and self.pitcher.hand == 'L'):
-            ax.text(0.47,0.1,self.batter.name, ha = 'right', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_runner)
+            ax.text(0.47,0.1,self.batter.name, ha = 'right', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_runner)
         else:
-            ax.text(0.53,0.1,self.batter.name, ha = 'left', va = 'center', fontsize = 10,transform = ax.transAxes, bbox = bbox_runner)
-        plt.show()
+            ax.text(0.53,0.1,self.batter.name, ha = 'left', va = 'center', fontsize = 6,transform = ax.transAxes, bbox = bbox_runner)
+        
     
     def S(self, typ):
         """Updates game state for all variety of singles.
@@ -269,7 +266,7 @@ class game_state():
             list: Additional box score arguments ('out' if runner thrown out)
             list: Additional score card arguments (Always empty)
         """
-        
+        BS_arg = ['']
         if typ == '**': #2-base double
             
             #Runners on second and third score
@@ -802,7 +799,7 @@ class box_score():
                               "FB": self.FB, "GB": self.GB, 'lomax': self.lomax, "LO": self.LO, "PO": self.PO, "FO": self.FO, 
                               "E": self.E}
         
-    def display(self, batter = True, pitcher = True, home = True, away = True):
+    def display(self, batter=True, pitcher=True, away=True, ax = None):
         """Displays box score.
 
         Arguments:
@@ -812,26 +809,70 @@ class box_score():
             away (bool, optional, default True): Whether or not to show away team info.
         """
 
+        if ax is None:
+            fig = plt.figure(figsize = [4,6])
+            ax = fig.add_subplot()
+
         if away:
-            #Print tabulated statistics for away players
-            print('Away:')
-            
             if batter:
-                print(tabulate(pd.DataFrame(data = self.hitters[0].values(),columns = ['Pos','AB','R','H','RBI','HR','BB','K'],index = self.hitters[0].keys()),
-                                            headers = 'keys', tablefmt = 'fancy_grid'))
+                df = pd.DataFrame(data=self.hitters[0].values(), columns=['Pos', 'AB', 'R', 'H', 'RBI', 'HR', 'BB', 'K'],
+                                            index=self.hitters[0].keys())
+                
+                arr = [[df.index[i]] + list(df.values[i]) for i in range(9)]
+
+                table = ax.table(cellText=arr,
+                        colLabels=['Name','Pos', 'AB', 'R', 'H', 'RBI', 'HR', 'BB', 'K'],
+                        colWidths=[0.3,0.14,0.08,0.08,0.08,0.08,0.08,0.08,0.08],
+                        loc=8)
+                table.scale(1,1.5)
+
             if pitcher:
-                print(tabulate(pd.DataFrame(data = self.pitchers[0].values(), columns = ['IP', 'H', 'R', 'BB', 'K', 'HR'], index = self.pitchers[0].keys()),
-                                            headers = 'keys', tablefmt = 'fancy_grid'))
-        
-        if home:
-            #Print tabulated statistics for away players
-            print('Home:')
+                df = pd.DataFrame(data=self.pitchers[0].values(), columns=['IP', 'H', 'R', 'BB', 'K', 'HR'],
+                                            index=self.pitchers[0].keys())
+
+                arr = [[df.index[i]] + list(df.values[i]) for i in range(len(df.index))]
+
+                for i in range(len(arr)):
+                    for j in range(len(arr[i])):
+                        if j > 1:
+                            arr[i][j] = int(arr[i][j])
+                table = ax.table(cellText=arr,
+                         colWidths=[0.4,0.1,0.1,0.1,0.1,0.1,0.1],
+                        colLabels=['Name','IP', 'H', 'R', 'BB', 'K', 'HR'],
+                        loc=7)
+
+                table.scale(1,1.5)
+        else:
             if batter:
-                print(tabulate(pd.DataFrame(data = self.hitters[1].values(),columns = ['Pos','AB','R','H','RBI','HR','BB','K'],index = self.hitters[1].keys()),
-                                                headers = 'keys', tablefmt = 'fancy_grid'))
+                df = pd.DataFrame(data=self.hitters[1].values(), columns=['Pos', 'AB', 'R', 'H', 'RBI', 'HR', 'BB', 'K'],
+                                            index=self.hitters[1].keys())
+                
+                arr = [[df.index[i]] + list(df.values[i]) for i in range(9)]
+
+                table = ax.table(cellText=arr,
+                        colLabels=['Name','Pos', 'AB', 'R', 'H', 'RBI', 'HR', 'BB', 'K'],
+                        colWidths=[0.3,0.14,0.08,0.08,0.08,0.08,0.08,0.08,0.08],
+                        loc=8)
+                table.scale(1,1.5)
+
             if pitcher:
-                print(tabulate(pd.DataFrame(data = self.pitchers[1].values(), columns = ['IP', 'H', 'R', 'BB', 'K', 'HR'], index = self.pitchers[1].keys()),
-                                                headers = 'keys', tablefmt = 'fancy_grid'))
+                df = pd.DataFrame(data=self.pitchers[1].values(), columns=['IP', 'H', 'R', 'BB', 'K', 'HR'],
+                                            index=self.pitchers[1].keys())
+
+                for i in range(len(arr)):
+                    for j in range(len(arr[i])):
+                        if j > 1:
+                            arr[i][j] = int(arr[i][j])
+
+                arr = [[df.index[i]] + list(df.values[i]) for i in range(len(df.index))]
+                ax.table(cellText=arr,
+                         colWidths=[0.4,0.1,0.1,0.1,0.1,0.1,0.1],
+                        colLabels=['Name','IP', 'H', 'R', 'BB', 'K', 'HR'],
+                        loc=7)
+
+                table.scale(1,1.5)
+
+        ax.axis('off')
 
     def batter_runs(self, batting_team, batter, runs, RBI):
         """Function for updating batting box score when runs score
@@ -1370,12 +1411,33 @@ class scoreboard():
         self.plays = {"GB": self.N, "FB": self.N, "PO": self.N, "FO": self.N, "lomax": self.N, "LO": self.N, "BB": self.N, "K": self.N,
                    "S": self.H, "D": self.H, "T": self.H, "HR": self.H, "E": self.E}
         
-    def display(self):
+    def display(self, ax=None):
         """Function for displaying scoreboard.
         """
+        if ax is None:
+            fig = plt.figure(figsize = [10,1.2])
+            ax = fig.add_subplot()
 
-        df = pd.DataFrame(index = self.teams, data = [self.score[0].values(),self.score[1].values()], columns = self.score[0].keys())
-        print(tabulate(df, headers = 'keys', tablefmt = 'fancy_grid'))
+        table_data = []
+        # Add innings row
+        innings_row = [''] + [f"{i}" for i in range(1, 10)]
+        innings_row.extend(["R", "H", "E"])
+        table_data.append(innings_row)
+
+        # Add away team row
+        away_team_row = [self.teams[0]] + [str(self.score[0][i]) for i in range(1, 10)]
+        away_team_row.extend([self.score[0]['R'], self.score[0]['H'], self.score[0]['E']])
+        table_data.append(away_team_row)
+
+        # Add home team row
+        home_team_row = [self.teams[1]] + [str(self.score[1][i]) for i in range(1, 10)]
+        home_team_row.extend([self.score[1]['R'], self.score[1]['H'], self.score[1]['E']])
+        table_data.append(home_team_row)
+
+        table = ax.table(cellText=table_data, colLabels=None, cellLoc='center', loc='center')
+        table.scale(1, 1.5)  # Adjust the table size to fill the entire axis
+
+        ax.axis('off')  # Hide the axis
         
     def runs(self,r,inning, batting_team):
         """Function for updating scoreboard on run scoring.
@@ -1473,7 +1535,7 @@ class game():
         P = self.GS.pitcher
         
         #Ask for roll
-        input("Roll?")
+        # input("Roll?")
 
         #Roll dice
         roll = diceroll_6()
@@ -1531,7 +1593,7 @@ class game():
             if len(runs_0) > 0:
                 self.BS.batter_runs(self.GS.batting_team,B.name,runs_0,False)
                 self.BS.pitcher_runs(self.GS.batting_team,P.name,runs_0)
-                self.SB.runs(runs,self.GS.inning, self.GS.batting_team)
+                self.SB.runs(runs_0,self.GS.inning, self.GS.batting_team)
 
         #If result is HRN, change to S** if batter power weak
         if result[0] == 'HRN':
